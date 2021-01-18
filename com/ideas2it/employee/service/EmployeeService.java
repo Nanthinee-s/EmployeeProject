@@ -2,74 +2,83 @@ package com.ideas2it.employee.service;
 
 import java.util.List;
 
-import com.ideas2it.exception.EmployeeException;
 import com.ideas2it.employee.model.Employee;
 import com.ideas2it.employee.model.Address;
+import com.ideas2it.exception.CustomException;
+import com.ideas2it.project.model.Project;
 
+	
 public interface EmployeeService {
-  
-    /**
-     * Method to generate Employeeid
-     */    
-    String generateId() throws EmployeeException;
-    
-    /**
-     * Method to add details of Employee 
-     */  
-    void addEmployee(Employee person) throws EmployeeException ;
-    
-    /**
-     * Method to add Address of the employee
-     */
-    void addAddress(Employee person,Address address);
+	  
+	    /**
+	     * Method to generate Employee id
+	     */    
+	   // String generateEmployeeId() throws CustomException;
+	    
+	    /**
+	     * Method to add details of Employee 
+	     */  
+	    void addEmployee(Employee person)  throws CustomException ;
+	   	    
+	    /**
+	     * Method to validate phone number
+	     */
+	    boolean validatePhoneNumber(String phoneNumber);
+	   
+	    /**
+	     * Method to validate pincode
+	     */
+	    boolean validPinCode(String pinCode);
+	    
+	    /**
+	     * method to check the mobile number is already existing or Not
+	     */  
+	    boolean checkExisitingNumber(String checkingNumber) throws CustomException;
+	    
+	    /**
+	     * Method to check the mailId is valid or not
+	     */
+	    boolean isEmailIdValid(String emailId); 
+	   
+	    /**
+	     * Method to check the employeeId is present or not
+	     */ 
+	    boolean checkEmployeeId(String employeeId) throws CustomException ;
 
-    /**
-     * Method to validate phonenumber
-     */
-    boolean checkValidatePhoneNumber(String phoneNumber);
+	    /**
+	     * Method to delete the Employee and its detail by employeeId
+	     */
+	    boolean deleteEmployeeById(String employeeId) throws CustomException ;
+	    
+	    /**
+	     * Method to update The USerStatus by EmployeeId
+	     */   
+	    int updateEmployeeStatus(String employeeId) throws CustomException ;
+	    
+	    /**
+	     * Method to update the detail of the Employee using employeeId 
+	     */
+	    void updateEmployeeDetail(Employee employeeDetail) throws CustomException ;
+	    
+	    /**
+	     * Method to get the entire Employee details in the list
+	     */
+	    List<Employee> getAllEmployees() throws CustomException;
+	    
+	    /**
+	     * Method to get the Employee object 
+	     */     
+	    Employee getEmployeeByEmployeeId(String employeeId) throws CustomException; 
+	    
+	    /*List<Project> displayProjects() throws CustomException;
+	    
+	    Project getProjectById(String projectId) throws CustomException;
+	    
+	    Theatre getTheatreById(String theatreId) throws CustomException;
+	    
+	    String generateAssigningProjectId() throws CustomException;
+	 
+	    void updateTheatre(Theatre theatre) throws CustomException;*/
+	}
    
-    /**
-     * Method to validate pincode
-     */
-    boolean checkValidPinCode(String pinCode);
-    
-    /**
-     * method to check the mobile number is already exisiting or Not
-     */  
-    boolean checkExisitingNumber(String checkingNumber) throws EmployeeException;
-    
-    /**
-     * Method to check the mailId is valid or not
-     */
-    boolean isEmailIdValid(String emailId);  
-
-    /**
-     * Method to check The EmployeeId is exist or not
-     */
-    boolean checkId(String employeeId) throws EmployeeException ;    
-    
-    /**    
-     * Method to delete the Employee and its details by employeeId
-     */
-    boolean deleteEmployee(String employeeId) throws EmployeeException ;
-
-    /**
-     * Method to update The EmployeeStatus by EmployeeId
-     */   
-    int updateEmployeeStatus(String employeeId) throws EmployeeException ;
-    
-    /**
-     * Method to update the details of the Employee using employeeId 
-     */
-    void updateDetails(String employeeId,Employee employeeDetail) throws EmployeeException ;
-    
-    /**
-     * Method to get the entire Employee details in the list
-     */
-    List<Employee> entireEmployee() throws EmployeeException;
-     
-    /**
-     * Method to get the entire Address of Employee details in the list
-     */
-    List<Address> entireAddress(String employeeId) throws EmployeeException;
-}
+	  

@@ -2,8 +2,10 @@ package com.ideas2it.employee.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Set;
+//import com.ideas2it.employee.model.AssigningProject;
 import com.ideas2it.employee.model.Address;
+import com.ideas2it.project.model.Project;
 
 /*
  * This class is a POJO class, this class set all the details of Employee
@@ -11,12 +13,14 @@ import com.ideas2it.employee.model.Address;
  */
 public class Employee {
     private String phoneNumber;
-    private String employeeId;
+    private int employeeId;
     private String firstName;
     private String lastName;
     private String emailId;
     private boolean status;
-    private List<Address> address = new ArrayList<Address>();
+    private Set<Address> addresses;
+    private Set<Project> projects;
+    
    
     /* Using getter and setter method */
 
@@ -24,7 +28,7 @@ public class Employee {
         return phoneNumber;
     }
     
-    public String getEmployeeId() {
+    public int getEmployeeId() {
         return employeeId; 
     }
     
@@ -43,15 +47,19 @@ public class Employee {
     public boolean getStatus() {
         return status;
     }
-    public List<Address> getAddress() {
-        return address;
+    public Set<Address> getAddresses() {
+        return addresses;
     }
-    
+	
+	public Set<Project> getProjects() { 
+		 return projects;
+	}
+	   
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
      
@@ -71,9 +79,15 @@ public class Employee {
         this.status = status;
     }
     
-    public void setAddress(List<Address> address) {
-        this.address = address;
+    public void setAddress(Set<Address> addresses) {
+        this.addresses = addresses;
     }
+    
+	
+	 public void setProject(Set<Project> projects) {
+	 this.projects = projects; 
+	 }
+	 
     
     public String toString() {
         return (getEmployeeId() + "\t" + getFirstName() + "\t"

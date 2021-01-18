@@ -3,75 +3,80 @@ package com.ideas2it.employee.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ideas2it.employee.model.AssigningProject;
 import com.ideas2it.employee.dao.EmployeeDao;
-import com.ideas2it.exception.EmployeeException;
 import com.ideas2it.employee.model.Employee;
 import com.ideas2it.employee.model.Address;
 import com.ideas2it.employee.service.EmployeeService;
+import com.ideas2it.project.model.Project;
+import com.ideas2it.project.dao.ProjectDao;
+import com.ideas2it.project.service.ProjectService;
+import com.ideas2it.project.service.impl.ProjectServiceImpl;
 import com.ideas2it.util.Util;
+import com.ideas2it.exception.CustomException;
 
 /*
  *  This class will come under the package of ideas2it
  *  this class contains the business logic
  *  In this class, it access EmployeeDao and EmployeeUtil class
  */
-public class EmployeeServiceImpl implements EmployeeService {
 
-    EmployeeDao employeeDao = new EmployeeDao();
-    Util util = new Util();
+public class EmployeeServiceImpl implements EmployeeService {
+	EmployeeDao employeeDao = new EmployeeDao();
+    Util util = new Util();    
     static int autoGenerateId = 1;
     
     /**
      * Method to automatically generate the employeeid 
      * @return employeeId
      */      
-    public String generateId() throws EmployeeException {
-        return "EMP -" + (employeeDao.employeeCount()+1); 
-    }
+	/*
+	 * public String generateEmployeeId() throws CustomException { return "EMP-" +
+	 * (employeeDao.countEmployees()+1); }
+	 */
     
+    /**
+     * Method to automatically generate the Bookingid 
+     * @return bookingId
+     
+    public String generateAssigningProjectId() throws CustomException {
+        return "B" + (employeeDao.countBookings()+1); 
+    }
+     */
     /**
      * Method to Add the detail of the Employee
      * @param get the detail of Employee from Employee pojo class
      */
-    public void addEmployee(Employee person) throws EmployeeException {
-        employeeDao.createEmployee(person);
+    public void addEmployee(Employee employeeDetail) throws CustomException{
+        employeeDao.registerEmployee(employeeDetail);
     }
-    
-    /**
-     * Method to set the address of the Employee
-     * @param get the EmployeeDetails and Also Address pojo class to set 
-     */
-    public void addAddress(Employee person, Address address) {
-        List<Address> addresses = person.getAddress();
-        addresses.add(address);
-        person.setAddress(addresses);
-    } 
  
     /**
      * Method to check the phone number is valid or not 
-     * @param it get the phonenumber
+     * @param it get the phone number
      * @return boolean value for the given input
      */    
-    public boolean checkValidatePhoneNumber(String phoneNumber) {
-        return util.validateNumber(phoneNumber);
+    public boolean validatePhoneNumber(String phoneNumber) {
+        return util.validatePhoneNumber(phoneNumber);
     }
    
     /**
      * Method to check the pincode is valid or not 
      * @param it get the pincode from Controller
-     * @return boolan value for the given input
+     * @return boolean value for the given input
      */
-    public boolean checkValidPinCode(String pinCode) {
+    public boolean validPinCode(String pinCode) {
         return util.validatePinCode(pinCode);
     }
  
     /**
      * Method to check the phone number is already Existing or not
-     * @param get the phonenumber from controller
+     * @param get the phone number from controller
      * @return boolean for the given input
      */
-    public boolean checkExisitingNumber(String checkingNumber) throws EmployeeException {
-        for(Employee employeeDetails : entireEmployee()) {
+    public boolean checkExisitingNumber(String checkingNumber)
+                                        throws CustomException {
+        for(Employee employeeDetails : getAllEmployees()) {
             if(employeeDetails.getPhoneNumber().equals(checkingNumber)) {
                 return false;
             } 
@@ -89,55 +94,69 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     /**
-     * Method to check the Employee Id Existing or not
-     * @param it get the Employeeid 
-     * @return the boolean value for The given input
+     * Method used to check the employee Id is present or not
+     * @param it get the employeeId
+     * @return the boolean value
      */
-    public boolean checkId(String employeeId) throws EmployeeException {
-        return employeeDao.checkId("EMP -"+employeeId);
+    public boolean checkEmployeeId(String employeeId) throws CustomException {
+        return employeeDao.checkEmployeeId(employeeId);
     }
-     
-     
+    
     /**
      * Method to delete the employee by using EmployeeId
      * @param get the employee id
      */
-    public boolean deleteEmployee(String employeeId) throws EmployeeException {
-        if(employeeDao.deleteEmployeeById("EMP -"+employeeId) == 1) {
+    public boolean deleteEmployeeById(String employeeId) throws CustomException {
+        if(employeeDao.deleteEmployeeById(employeeId) == 1) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
-
-    /* Method used to update the status of employee */
-    public int updateEmployeeStatus(String employeeId) throws EmployeeException {
+     
+    /**
+     * method used to update the status of employee 
+     * @param it get the employeeId
+     * return the int value
+     */
+    public int updateEmployeeStatus(String employeeId) throws CustomException {
         return (employeeDao.updateEmployeeStatus(employeeId));
     }
-    
-    /* Method used to update the detail of the employee by calling the dao method */
-    public void updateDetails(String employeeId,Employee employeeDetail) throws EmployeeException {
-        employeeDao.updateDetails("EMP -"+employeeId,employeeDetail);
-    }
-    public void updateAddress(String employeeId,Employee employeeDetail) throws EmployeeException {
-        employeeDao.updateAddress("EMP -"+employeeId,employeeDetail);
+
+    /**
+     * method used to update the detail of the employee 
+     * @param it get the EmployeeDetail
+     */
+    public void updateEmployeeDetail(Employee employeeDetail) throws CustomException {
+        employeeDao.updateEmployeeDetail(employeeDetail);
     }
    
     /**
+     * method to get the List of employees
      * @return all Employee in the form of list
      */
-    public List<Employee> entireEmployee() throws EmployeeException {
-        return (employeeDao.employeeDetail());
+    public List<Employee> getAllEmployees() throws CustomException {
+        return (employeeDao.getAllEmployees());
     }
     
     /**
-     * Method to get The entire Address of given Employee using employeeId
-     * @param get the employeeId
-     * @return the list of Employee
+     * Method to get the Employee object
+     * @param it get the Employeeid 
+     * @return it get the object of Employee
      */
-    public List<Address> entireAddress(String employeeId) throws EmployeeException {
-        return(employeeDao.addressDetail(employeeId));
+    public Employee getEmployeeByEmployeeId(String employeeId) throws CustomException {
+        return (employeeDao.getEmployeeById(employeeId));
     }
-}
+    
+    /*public List<Project> displayProjects() throws CustomException {
+        return projectService.getAllProjects();
+    }
+    
+    public Project getProjectById(String projectId) throws CustomException {
+        return projectService.getProjectById(projectId);
+    }*/
+    
+   
+    }
+
    
   

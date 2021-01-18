@@ -1,22 +1,23 @@
 package com.ideas2it.project.model;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
 
+import com.ideas2it.employee.model.Employee;
 /**
- * This class Project is used to set and get the project detail and its value
+ * this class Project is used to set and get the project detail and its value
  */
 public class Project {  
-    private String projectId;
+    private int projectId;
     private String projectName;
     private String projectBudget;
     private String projectTimeFrame;
     private String projectDescription;
     private boolean status;
+    private Set<Employee> employees;
 
-    /* Using getter and setter method */ 
+    /* using getter and setter method */ 
       
-    public String getProjectId() {
+    public int getProjectId() {
         return projectId;
     }
 
@@ -40,7 +41,14 @@ public class Project {
         return status;
     }
     
-    public void setProjectId(String projectId) {
+    public Set<Employee> getEmployees() { 
+		 return employees;
+	}
+	/*
+	 * public Set<Employee> getEmployees() { return employees; }
+	 */
+    
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
@@ -64,6 +72,14 @@ public class Project {
         this.status = status;
     }
 
+    public void setEmployee(Set<Employee> employees) {
+   	 this.employees = employees; 
+   	 }
+	/*
+	 * public void setEmployee(Set<Employee> employees) { this.employees =
+	 * employees; }
+	 */
+    
     public String toString() {
        return (getProjectId() + "\t" + getProjectName() + "\t"
         + getProjectBudget() + "\t" + getProjectTimeFrame() + "\t" 

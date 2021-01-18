@@ -1,4 +1,3 @@
-package com.ideas2it;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,9 +13,10 @@ import com.ideas2it.project.service.impl.ProjectServiceImpl;
 import com.ideas2it.employee.model.Address;
 import com.ideas2it.employee.model.Employee;
 import com.ideas2it.project.model.Project;
-import com.ideas2it.dbconnection.DataBaseConnection;
-import com.ideas2it.exception.EmployeeException;
+import com.ideas2it.hibernateconnection.HibernateSessionFactory;
+import com.ideas2it.exception.CustomException;
 import com.ideas2it.util.Util;
+;
 
 /* Java program to choose to register  the  employee or 
  * project managament . In this we can create the  profile and display the profile
@@ -29,8 +29,8 @@ import com.ideas2it.util.Util;
 public class Main {
 
     public static void main(String[] args) {
-        Main main = new Main();	
-        /*To create the object for Employeecontroller class */
+        Main main = new Main();
+        /*To create the object for Employee controller class */
         EmployeeController employeeController = new EmployeeController();         
         /* To create object for ProjectController class */  
         ProjectController projectController = new ProjectController();
@@ -41,8 +41,7 @@ public class Main {
                 System.out.println("----------------Welcome----------------");
                 System.out.println("Which Management you want to choose ");
                 System.out.println("1:Project Management");               
-                System.out.println("2:Employee Management");
-                System.out.println("3:EmployeeProjectId");
+                System.out.println("2:Employee Management");              
                 System.out.println("Enter your option ");
                 Scanner inputReader = new Scanner(System.in);
                 optionOfEmployee = inputReader.nextInt();
@@ -54,7 +53,7 @@ public class Main {
                 case 2:
                     /* Call the method employeeManagement in class EmployeeController */
                     employeeController.employeeManagement();   
-                    break;		    
+                    break;		        
                 case 3:
                     break;
                 default:

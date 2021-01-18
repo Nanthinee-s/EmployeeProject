@@ -1,26 +1,35 @@
 package com.ideas2it.employee.model;
 
 /**
- * This POJO class is to set the employee address in Address type
+ * this POJO class is to set the user address in Address type
  * and also gets the address in Address type 
  */
+
 public class Address {
+  
     private String streetName;
     private String areaName;
     private String cityName;
     private String pinCode;
-    private String id;
+    private int addressId;
+    private Employee employee;
+ 
+    /* using getter and setter method */
     
-    /* Using getter and setter method */ 
-  
-    public String getId() {
-        return id;
+    public Address() { }
+    
+    public int getAddressId() {
+        return addressId;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+    
     public String getStreetName() {
         return streetName;
     }  
-    
+   
     public String getAreaName() {
         return areaName;
     }
@@ -32,9 +41,13 @@ public class Address {
     public String getPinCode() {
         return pinCode;
     }
-  
+
     public void setStreetName(String streetName) {
         this.streetName = streetName;
+    }
+    
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
     
     public void setAreaName(String areaName) {
@@ -49,12 +62,12 @@ public class Address {
         this.pinCode = pinCode;    
     } 
     
-    public void setId(String id) {
-        this.id = id;
-    }
-    
+   public void setAddressId(int addressId) {
+        this.addressId = addressId;    
+    } 
+       
     public String toString() {
-        return (getId() + "\t " + getStreetName() + "\t" + getAreaName() + "\t"
+        return (getAddressId() + "\t " + getStreetName() + "\t" + getAreaName() + "\t"
                + getCityName() + "\t" + getPinCode() + "\t");
     }
 }

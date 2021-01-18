@@ -1,49 +1,52 @@
 package com.ideas2it.project.service;
 
 import java.util.List;
+import java.util.Set;
 
-import com.ideas2it.exception.EmployeeException;
+import com.ideas2it.exception.CustomException;
 import com.ideas2it.project.model.Project;
-
-public interface ProjectService{
+public interface ProjectService {
     
     /**  
      * Method to add projects 
      */
-    public void addProject(Project projectDetails) throws EmployeeException;
+    public void addProject(Project projectDetails) throws CustomException;
     
     /**
-     * Method to check employeeId is exists or not
+     * method to check theatreId is exists or not
      */
-    boolean checkEmployeeId(String employeeId) throws EmployeeException;
+   //Theatre checkTheatreId(String theatreId) throws CustomException;
     
     /**
-     * Method to get the existing projects 
+     * method to get the existing projects 
      */
-    List<Project> entireProject() throws EmployeeException;
+    List<Project> entireProject() throws CustomException;
     
     /**
-     * Method to generate project Id
+     * method to generate project Id
      */
-    String generateId() throws EmployeeException;
+    //String generateId() throws CustomException;
   
     /**
-     * Method to check the project Id is existing or not
+     * Method to update the status of user 
      */
-    boolean checkId(String projectId) throws EmployeeException; 
+    int updateProjectStatus(String projectId) throws CustomException;
     
     /**
-     * Method to delete project 
+     * method to check the project Id is existing or not
      */
-    boolean deleteProject(String projectId) throws EmployeeException;
-
-    /**
-     * Method to update the status of project 
-     */
-    int updateProjectStatus(String projectId) throws EmployeeException;    
+    Project checkProjectId(String projectId) throws CustomException; 
     
     /**
-     * Method to updateDetails of the given Project
+     * method to delete project 
      */
-    void updateDetails(String projectId, Project projectDetail) throws EmployeeException;     
+    int deleteProject(String projectId) throws CustomException;
+    
+    /**
+     * method to updateDetail of the given Project
+     */
+    void updateDetail(Project project) throws CustomException; 
+    
+    
+     
 }
