@@ -3,10 +3,7 @@ package com.ideas2it.employee.service;
 import java.util.List;
 
 import com.ideas2it.employee.model.Employee;
-import com.ideas2it.employee.model.Address;
 import com.ideas2it.exception.CustomException;
-import com.ideas2it.project.model.Project;
-
 	
 public interface EmployeeService {
 	  
@@ -70,15 +67,14 @@ public interface EmployeeService {
 	     */     
 	    Employee getEmployeeByEmployeeId(String employeeId) throws CustomException; 
 	    
-	    /*List<Project> displayProjects() throws CustomException;
-	    
-	    Project getProjectById(String projectId) throws CustomException;
-	    
-	    Theatre getTheatreById(String theatreId) throws CustomException;
-	    
-	    String generateAssigningProjectId() throws CustomException;
-	 
-	    void updateTheatre(Theatre theatre) throws CustomException;*/
-	}
-   
+	/*
+	 * List<Project> displayProjects() throws CustomException;
+	 * 
+	 * Project getProjectById(String projectId) throws CustomException;
+	 * 
+	 * String generateAssigningProjectId() throws CustomException;
+	 */
+	 	    
+	
+   }
 	  

@@ -1,10 +1,11 @@
 package com.ideas2it.project.service;
 
 import java.util.List;
-import java.util.Set;
 
+import com.ideas2it.employee.model.Employee;
 import com.ideas2it.exception.CustomException;
 import com.ideas2it.project.model.Project;
+
 public interface ProjectService {
     
     /**  
@@ -12,10 +13,7 @@ public interface ProjectService {
      */
     public void addProject(Project projectDetails) throws CustomException;
     
-    /**
-     * method to check theatreId is exists or not
-     */
-   //Theatre checkTheatreId(String theatreId) throws CustomException;
+    
     
     /**
      * method to get the existing projects 
@@ -36,7 +34,7 @@ public interface ProjectService {
      * method to check the project Id is existing or not
      */
     Project checkProjectId(String projectId) throws CustomException; 
-    
+   Employee checkEmployeeId(String employeeId) throws CustomException; 
     /**
      * method to delete project 
      */

@@ -18,9 +18,9 @@
    
     <property name = "status" column = "status" type = "boolean"/>
     
-   <!--  <set name="employees" table="Employee_project"  lazy="false" cascade = "all" >
+   <set name="employees" table="Employee_project"  lazy="false" cascade = "all" >
             <key column = "project_id"/>
              <many-to-many class = "com.ideas2it.employee.model.Employee"/>       
-        </set>  -->
-    </class>
+        </set>  
+</class>
 </hibernate-mapping>

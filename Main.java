@@ -4,22 +4,9 @@ import java.util.Scanner;
 
 import com.ideas2it.employee.controller.EmployeeController;
 import com.ideas2it.project.controller.ProjectController;
-import com.ideas2it.employee.dao.EmployeeDao;
-import com.ideas2it.project.dao.ProjectDao;
-import com.ideas2it.employee.service.EmployeeService;
-import com.ideas2it.project.service.ProjectService;
-import com.ideas2it.employee.service.impl.EmployeeServiceImpl;
-import com.ideas2it.project.service.impl.ProjectServiceImpl;
-import com.ideas2it.employee.model.Address;
-import com.ideas2it.employee.model.Employee;
-import com.ideas2it.project.model.Project;
-import com.ideas2it.hibernateconnection.HibernateSessionFactory;
-import com.ideas2it.exception.CustomException;
-import com.ideas2it.util.Util;
-;
 
 /* Java program to choose to register  the  employee or 
- * project managament . In this we can create the  profile and display the profile
+ * project management . In this we can create the  profile and display the profile
  * Update the profile and Delete the profile
  * by using CRUD operation with the help of collections
  * @author NANTHINEE S

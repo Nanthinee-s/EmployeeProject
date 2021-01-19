@@ -1,9 +1,7 @@
 package com.ideas2it.employee.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-//import com.ideas2it.employee.model.AssigningProject;
+
 import com.ideas2it.employee.model.Address;
 import com.ideas2it.project.model.Project;
 
@@ -12,16 +10,26 @@ import com.ideas2it.project.model.Project;
  * and also gets the details of Employees
  */
 public class Employee {
-    private String phoneNumber;
-    private int employeeId;
-    private String firstName;
+	
+	private int employeeId;
+	private String firstName;
     private String lastName;
+    private String phoneNumber;       
     private String emailId;
     private boolean status;
     private Set<Address> addresses;
     private Set<Project> projects;
     
-   
+    public Employee() { }
+    
+    public Employee(String firstName, String lastName, String phoneNumber,String emailId, boolean status) {
+		//this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.emailId = emailId;
+		//this.status = status;
+	}
     /* Using getter and setter method */
 
     public String getPhoneNumber() {
@@ -79,13 +87,12 @@ public class Employee {
         this.status = status;
     }
     
-    public void setAddress(Set<Address> addresses) {
+    public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
-    
-	
-	 public void setProject(Set<Project> projects) {
-	 this.projects = projects; 
+    	
+	public void setProject(Set<Project> projects) {
+	    this.projects = projects; 
 	 }
 	 
     

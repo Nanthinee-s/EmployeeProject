@@ -1,13 +1,11 @@
 package com.ideas2it.project.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.ideas2it.project.dao.ProjectDao;
+import com.ideas2it.employee.model.Employee;
 import com.ideas2it.exception.CustomException;
+import com.ideas2it.project.dao.Impl.ProjectDaoImpl;
 import com.ideas2it.project.model.Project;
-import com.ideas2it.employee.service.EmployeeService;
-import com.ideas2it.employee.service.impl.EmployeeServiceImpl;
 import com.ideas2it.project.service.ProjectService;
 import com.ideas2it.util.Util;
 
@@ -17,7 +15,8 @@ import com.ideas2it.util.Util;
  * In this class, it access projectDao and Util class
  */
 public class ProjectServiceImpl implements ProjectService {
-ProjectDao projectDao = new ProjectDao();
+ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+
 Util util = new Util();
 //TheatreService theatreService = new TheatreServiceImpl();
 
@@ -26,7 +25,7 @@ Util util = new Util();
  * @param it get the value from the Project pojo
  */
 public void addProject(Project projectDetails) throws CustomException{
-    projectDao.registerProject(projectDetails);
+    projectDaoImpl.registerProject(projectDetails);
 }
 
 /**
@@ -54,14 +53,17 @@ public void addProject(Project projectDetails) throws CustomException{
  * @return boolean for the given input
  */
 public Project checkProjectId(String projectId) throws CustomException {
-    return projectDao.checkProjectId(projectId);
+    return projectDaoImpl.checkProjectId(projectId);
 } 
 
+public Employee checkEmployeeId(String employeeId) throws CustomException {
+    return projectDaoImpl.checkEmployeeId(employeeId);
+} 
 /**
  * Return all projects in form of list
  */
 public List<Project> entireProject() throws CustomException{
-    return (projectDao.projectDetail());
+    return (projectDaoImpl.projectDetail());
 }
 
 /** 
@@ -69,7 +71,7 @@ public List<Project> entireProject() throws CustomException{
  * @param get the ProjectId to update status 
  */
 public int updateProjectStatus(String projectId) throws CustomException{
-    return projectDao.updateProjectStatus(projectId);
+    return projectDaoImpl.updateProjectStatus(projectId);
 }
 
 /**
@@ -77,7 +79,7 @@ public int updateProjectStatus(String projectId) throws CustomException{
  * @param get the projectId   
  */
 public int deleteProject(String projectId) throws CustomException {
-    return projectDao.deleteProjectById(projectId);
+    return projectDaoImpl.deleteProjectById(projectId);
 }
 
 /**
@@ -85,7 +87,7 @@ public int deleteProject(String projectId) throws CustomException {
  * @params it get the Project pojo class and also get the projectId
  */
 public void updateDetail(Project project) throws CustomException{
-    projectDao.updateDetail(project);
+    projectDaoImpl.updateDetail(project);
 } 
 
 /**

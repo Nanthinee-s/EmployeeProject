@@ -12,6 +12,6 @@
         <property name = "hibernate.connection.password">Jelly22fi$h</property>
         <mapping resource = "resource/class/Employee.hbm.xml"/>        
         <mapping resource = "resource/class/Address.hbm.xml"/> 
-        <mapping resource = "resource/class/Project.hbm.xml"/>         
-    </session-factory>
+       <mapping resource = "resource/class/Project.hbm.xml"/>         
+   </session-factory>
 </hibernate-configuration>

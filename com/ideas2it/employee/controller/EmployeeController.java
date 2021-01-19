@@ -1,22 +1,15 @@
 package com.ideas2it.employee.controller;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Set;
 import java.util.Scanner;
-
+import java.util.Set;
 
 import com.ideas2it.employee.model.Address;
-import com.ideas2it.employee.model.AssigningProject;
 import com.ideas2it.employee.model.Employee;
 import com.ideas2it.employee.service.EmployeeService;
 import com.ideas2it.employee.service.impl.EmployeeServiceImpl; 
 import com.ideas2it.exception.CustomException;
-import com.ideas2it.project.model.Project;
 
 /** 
  * Java program to register the Employee profile
@@ -127,7 +120,7 @@ public class EmployeeController {
             System.out.println("Enter the EmployeeId :");
             String employeeId = inputReader.next();
             Employee employeeDetail = employeeService.getEmployeeByEmployeeId(employeeId);
-            employeeDetail.setEmployeeId(employeeId);
+            //employeeDetail.setEmployeeId(employeeId);
             employeeDetail.setPhoneNumber(validateMobileNumber());
             System.out.println("Enter new First name :");
             employeeDetail.setFirstName(inputReader.next());
@@ -197,7 +190,7 @@ public class EmployeeController {
         System.out.println("-----------------------------------------------" +
                            "------");
         try {
-            for(Address address : employeeDetail.getAddress()) {
+            for(Address address : employeeDetail.getAddresses()) {
                 System.out.println(address+ "\t");
             }
         } catch(Exception e) {
@@ -336,7 +329,7 @@ public class EmployeeController {
             System.out.println("If you want to add another address : yes/no");
             wantMoreAddress = inputReader.next();   
         } while(wantMoreAddress.equals("yes"));
-        employeeDetail.setAddress(addresses);
+        employeeDetail.setAddresses(addresses);
     } 
     
     /**
@@ -346,7 +339,7 @@ public class EmployeeController {
     private void updateEmployeeAddress(Employee employeeDetail) {
         System.out.println("Address details");
         String wantMoreAddress;   
-        Set<Address> addresses = employeeDetail.getAddress();
+        Set<Address> addresses = employeeDetail.getAddresses();
         do {
             System.out.println("Enter the addressId"); 
             int addressId = inputReader.nextInt();
@@ -364,7 +357,7 @@ public class EmployeeController {
             System.out.println("If you want to update another address : yes/no");
             wantMoreAddress = inputReader.next();
         } while(wantMoreAddress.equals("yes"));    
-        employeeDetail.setAddress(addresses);
+        employeeDetail.setAddresses(addresses);
     }
     /**
     private void assigningProject() {

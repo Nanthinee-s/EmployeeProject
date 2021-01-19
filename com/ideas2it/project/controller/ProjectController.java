@@ -1,19 +1,14 @@
 package com.ideas2it.project.controller;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 import java.util.Set;
-import java.util.HashSet;
+import java.util.InputMismatchException;
 
-import com.ideas2it.project.model.Project;
 import com.ideas2it.employee.model.Employee;
-import com.ideas2it.exception.CustomException;
-
 import com.ideas2it.employee.service.EmployeeService;
 import com.ideas2it.employee.service.impl.EmployeeServiceImpl;
+import com.ideas2it.exception.CustomException;
+import com.ideas2it.project.model.Project;
 import com.ideas2it.project.service.impl.ProjectServiceImpl;
 import com.ideas2it.project.service.ProjectService;
 
@@ -31,7 +26,7 @@ public class ProjectController {
 	EmployeeService employeeService = new EmployeeServiceImpl();
 	ProjectService projectService = new ProjectServiceImpl();
 
-	// TheatreService theatreService = new TheatreServiceImpl();
+	// EmployeeService employeeService = new EmployeeServiceImpl();
 	public void projectManagement() {
 		ProjectController projectController = new ProjectController();
 		System.out.println();
@@ -70,9 +65,9 @@ public class ProjectController {
 					/* call the method to update the status */
 					updateProjectStatus();
 					break;
-				//case 7:
-				//	distributeProject();
-				//	break;
+				case 7:
+					distributeProject();
+				    break;
 				case 8:
 					break;
 				default:
@@ -119,26 +114,41 @@ public class ProjectController {
 		}
 	}
 
-	/* *//**
-			 * method to distribute the projects to theatres
-			 *//*
-				 * private void distributeProject() { Project project = null; Theatre theatre =
-				 * null; try { System.out.println("Enter Theatre Id to add new Project"); String
-				 * theatreId = input.next(); theatre = projectService.checkTheatreId(theatreId);
-				 * System.out.println(theatre + "rechead 1"); if (theatre != null) {
-				 * displayAllProjects();
-				 * System.out.println("Enter Project Id to add new Project with" +"Theatre");
-				 * String projectId = input.next(); project =
-				 * projectService.checkProjectId(projectId); System.out.println(project +
-				 * "reached project"); Set<Theatre> theatres = project.getTheatres(); if
-				 * (project != null) { theatres.add(theatre); project.setTheatres(theatres);
-				 * projectService.addProject(project); } else {
-				 * System.out.println("The Entered Project ID "
-				 * +projectId+" is not Registered"); } } else {
-				 * System.out.println("The Entered Theatre ID "
-				 * +theatreId+" is not Registered"); } } catch (CustomException exception) {
-				 * System.out.println(exception); } }
-				 */
+	/**
+     * method to distribute the projects to employees
+     */
+    private void distributeProject() {
+        Project project = null;
+        Employee employee = null;
+        try {
+            System.out.println("Enter employee Id to add new Project");
+            String employeeId = input.next(); 
+            employee = projectService.checkEmployeeId(employeeId);
+            System.out.println(employee + "rechead 1");           
+            if (employee != null) { 
+                displayAllProjects(); 
+                System.out.println("Enter Project Id to add new Project with"
+                                   +"Employee");
+                String projectId = input.next();
+                project = projectService.checkProjectId(projectId);
+                System.out.println(project + "reached project");
+                Set<Employee> employees = project.getEmployees();
+                if (project != null) {                
+                    employees.add(employee);
+                    projectService.addProject(project);
+                } else {
+                     System.out.println("The Entered Project ID "
+                                        +projectId+" is not Registered");
+                }
+            } else {
+                System.out.println("The Entered Employee ID "
+                                        +employeeId+" is not Registered");
+            }             
+        } catch (CustomException exception) {
+                System.out.println(exception);
+        }        
+    }    
+
 
 	/**
 	 * Method is used to update the project details
@@ -149,7 +159,7 @@ public class ProjectController {
 			System.out.println("Enter the ProjectId :");
 			String projectId = input.next();
 			if (employeeService.checkEmployeeId(projectId)) {
-				projectDetail.setProjectId(projectId);
+				//projectDetail.setProjectId(projectId);
 				System.out.println("Enter the project Name");
 				projectDetail.setProjectName(input.next());
 				System.out.println("Enter the project budget");

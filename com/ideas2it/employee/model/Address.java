@@ -18,6 +18,14 @@ public class Address {
     
     public Address() { }
     
+    public Address(String streetName, String areaName, String cityName, String pinCode) {
+		super();
+		this.streetName = streetName;
+		this.areaName = areaName;
+		this.cityName = cityName;
+		this.pinCode = pinCode;
+	}
+    
     public int getAddressId() {
         return addressId;
     }

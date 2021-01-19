@@ -1,19 +1,12 @@
 package com.ideas2it.employee.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.ideas2it.employee.model.AssigningProject;
-import com.ideas2it.employee.dao.EmployeeDao;
+import com.ideas2it.employee.dao.Impl.EmployeeDaoImpl;
 import com.ideas2it.employee.model.Employee;
-import com.ideas2it.employee.model.Address;
 import com.ideas2it.employee.service.EmployeeService;
-import com.ideas2it.project.model.Project;
-import com.ideas2it.project.dao.ProjectDao;
-import com.ideas2it.project.service.ProjectService;
-import com.ideas2it.project.service.impl.ProjectServiceImpl;
-import com.ideas2it.util.Util;
 import com.ideas2it.exception.CustomException;
+import com.ideas2it.util.Util;
 
 /*
  *  This class will come under the package of ideas2it
@@ -22,9 +15,9 @@ import com.ideas2it.exception.CustomException;
  */
 
 public class EmployeeServiceImpl implements EmployeeService {
-	EmployeeDao employeeDao = new EmployeeDao();
+	EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
     Util util = new Util();    
-    static int autoGenerateId = 1;
+   // static int autoGenerateId = 1;
     
     /**
      * Method to automatically generate the employeeid 
@@ -48,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param get the detail of Employee from Employee pojo class
      */
     public void addEmployee(Employee employeeDetail) throws CustomException{
-        employeeDao.registerEmployee(employeeDetail);
+        employeeDaoImpl.registerEmployee(employeeDetail);
     }
  
     /**
@@ -99,7 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return the boolean value
      */
     public boolean checkEmployeeId(String employeeId) throws CustomException {
-        return employeeDao.checkEmployeeId(employeeId);
+        return employeeDaoImpl.checkEmployeeId(employeeId);
     }
     
     /**
@@ -107,7 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param get the employee id
      */
     public boolean deleteEmployeeById(String employeeId) throws CustomException {
-        if(employeeDao.deleteEmployeeById(employeeId) == 1) {
+        if(employeeDaoImpl.deleteEmployeeById(employeeId) == 1) {
             return true;
         }
         return false;
@@ -119,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * return the int value
      */
     public int updateEmployeeStatus(String employeeId) throws CustomException {
-        return (employeeDao.updateEmployeeStatus(employeeId));
+        return (employeeDaoImpl.updateEmployeeStatus(employeeId));
     }
 
     /**
@@ -127,7 +120,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param it get the EmployeeDetail
      */
     public void updateEmployeeDetail(Employee employeeDetail) throws CustomException {
-        employeeDao.updateEmployeeDetail(employeeDetail);
+        employeeDaoImpl.updateEmployeeDetail(employeeDetail);
     }
    
     /**
@@ -135,7 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return all Employee in the form of list
      */
     public List<Employee> getAllEmployees() throws CustomException {
-        return (employeeDao.getAllEmployees());
+        return (employeeDaoImpl.getAllEmployees());
     }
     
     /**
@@ -144,7 +137,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return it get the object of Employee
      */
     public Employee getEmployeeByEmployeeId(String employeeId) throws CustomException {
-        return (employeeDao.getEmployeeById(employeeId));
+        return (employeeDaoImpl.getEmployeeById(employeeId));
     }
     
     /*public List<Project> displayProjects() throws CustomException {
