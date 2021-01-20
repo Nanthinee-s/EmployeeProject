@@ -72,7 +72,7 @@ public class Project {
         this.status = status;
     }
 
-    public void setEmployee(Set<Employee> employees) {
+    public void setEmployees(Set<Employee> employees) {
    	 this.employees = employees; 
    	 }
 	/*

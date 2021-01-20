@@ -10,8 +10,8 @@ import com.ideas2it.project.model.Project;
  * all CRUD operations are done in this class
  * this class will be accessed by services
  */
-
 public interface ProjectDao {
+	
     /**
      * Method to register the Employee and its details
      * @param it get the EmployeeDetails
@@ -23,42 +23,45 @@ public interface ProjectDao {
      * @return it returns the entire project in form of list
      */
     List<Project> projectDetail(); 
-    	
-    
+    	   
     /**
      * method to count the ProjectsId for generate projectId
      * @return the int count value  
-     */
-     long projectCount(); 
-    	
-    
+     */   
+    long projectCount();     	   
     
     /**
      * method to update the status of project in the database
      * @param get the project Id for update
-     */   
-     int updateProjectStatus(String projectId) throws CustomException; 
-    	
+     */     
+    int updateProjectStatus(String projectId) throws CustomException; 
     
+    /**
+     * Used to retrieve the values into the database given
+     * by the id provided by user
+     * @param it gets the id of Employees for retrieving
+     */
+    void retriveProjectById(int projectId);
+    
+    void assignEmployee(int employeeId, int projectId) throws CustomException;
     /**
      * method used to check the given project id in the existing projects
      * @param get the projectId
      * @return the equivalent boolean value for given input
      */
     Project checkProjectId(String projectId) throws CustomException; 
-    	
-    
+    	    
     /**
      * method to delete the project by using projectId
      * @param get the projectId
      */
-  int deleteProjectById(String projectId);
+    int deleteProjectById(String projectId);
     	
     /**
      * method to update the detail of project 
      * @param get the detail from project pojo class and get the projectId
      */
-    void updateDetail(Project project) throws CustomException;  
+    void updateProject(Project project) throws CustomException;  
     	
 }
 

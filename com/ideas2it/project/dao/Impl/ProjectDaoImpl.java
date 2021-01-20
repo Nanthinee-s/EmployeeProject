@@ -2,6 +2,8 @@ package com.ideas2it.project.dao.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
 import org.hibernate.Session;    
@@ -22,12 +24,14 @@ import com.ideas2it.project.model.Project;
  */
 
 public class ProjectDaoImpl implements ProjectDao {
+	
+	private SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+	
     /**
      * Method to register the Employee and its details
      * @param it get the EmployeeDetails
      */  
     public void registerProject(Project project) throws CustomException { 
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
 		Session session = null;
 		Transaction transaction = null;
         try{    
@@ -41,12 +45,12 @@ public class ProjectDaoImpl implements ProjectDao {
             session.close(); 
         }
     } 
+    
     /**
      * method to get the entire detail of project from the database
      * @return it returns the entire project in form of list
      */
-    public List<Project> projectDetail() {
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+    public List<Project> projectDetail() {   	
 		Session session = null;
 		Transaction transaction = null;
         List<Project> projects = new ArrayList<Project>();
@@ -67,8 +71,7 @@ public class ProjectDaoImpl implements ProjectDao {
      * method to count the ProjectsId for generate projectId
      * @return the int count value  
      */
-    public long projectCount() {
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+    public long projectCount() {   	
 		Session session = null;
 		Transaction transaction = null;
         long noOfProject = 0L;   
@@ -84,18 +87,15 @@ public class ProjectDaoImpl implements ProjectDao {
         }
         return noOfProject;        
     }  
-    
-    
+     
     /**
      * method to update the status of project in the database
      * @param get the project Id for update
      */   
-    public int updateProjectStatus(String projectId) throws CustomException {
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+    public int updateProjectStatus(String projectId) throws CustomException {    	
 		Session session = null;
 		Transaction transaction = null;
-        int  noOfRowAffected = 0;
-        
+        int  noOfRowAffected = 0;        
         try{
         	session = factory.openSession();  
             transaction = session.beginTransaction();
@@ -121,11 +121,9 @@ public class ProjectDaoImpl implements ProjectDao {
      * @param get the projectId
      * @return the equivalent boolean value for given input
      */
-    public Project checkProjectId(String projectId) throws CustomException {
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+    public Project checkProjectId(String projectId) throws CustomException {   	
 		Session session = null;
-		Transaction transaction = null;
-        
+		Transaction transaction = null;       
         Project projectDetail;
         try {
         	session = factory.openSession();  
@@ -141,11 +139,14 @@ public class ProjectDaoImpl implements ProjectDao {
         return projectDetail;
     }   
     
-    public Employee checkEmployeeId(String employeeId) throws CustomException {
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+    /**
+	 * Method used to check the Employee Id is present or not
+	 * @param it get the EmployeeId
+	 * @return the employeeDetail
+	 */
+    public Employee checkEmployeeId(String employeeId) throws CustomException {    	
 		Session session = null;
-		Transaction transaction = null;
-        
+		Transaction transaction = null;        
 		Employee employeeDetail;
         try {
         	session = factory.openSession();  
@@ -160,16 +161,15 @@ public class ProjectDaoImpl implements ProjectDao {
         }
         return employeeDetail;
     }   
+    
     /**
      * method to delete the project by using projectId
      * @param get the projectId
      */
-    public int deleteProjectById(String projectId) {
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+    public int deleteProjectById(String projectId) {  	
 		Session session = null;
 		Transaction transaction = null;
-        int  noOfRowAffected = 0;
-        
+        int  noOfRowAffected = 0;      
         try{    
         	session = factory.openSession();  
             transaction = session.beginTransaction();
@@ -190,12 +190,61 @@ public class ProjectDaoImpl implements ProjectDao {
         return  noOfRowAffected;        
     }
     
+    public void assignEmployee(int employeeId, int projectId) throws CustomException{
+    	Session session = null;
+        Transaction transaction = null;
+        try {        
+            session = factory.openSession();
+            Query query = session.createQuery("from Project project where project.projectId = :projectId");
+            query.setParameter("projectId",projectId);
+            Project project = (Project) query.uniqueResult();
+            Query querys = session.createQuery("from Employee employee where employee.eid = :employeeId");
+            querys.setParameter("employeeId",employeeId);
+            Employee employee = (Employee) querys.uniqueResult();
+            Set <Project> projectSet = employee.getProjects();
+            projectSet.add(project);
+            employee.setProjects(projectSet);
+            session.saveOrUpdate(employee);
+            transaction = session.beginTransaction();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            System.out.println("unable to add User value" + ex);
+        } finally {
+            session.close();
+        }
+    }
+    /**
+     * Used to retrieve the values into the database given
+     * by the id provided by user
+     * @param it gets the id of Employees for retrieving
+     */ 
+	public void retriveProjectById(int projectId) {		
+		Session session = null;
+		Transaction transaction = null;
+		Project project=null;
+		try {
+			session = factory.openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("from Project  where projectId = : projectId");		
+			query.setParameter("projectId", projectId);
+			project = (Project) query.uniqueResult();
+		    System.out.println(project); 
+			transaction.commit();
+		} catch (HibernateException ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+	}
     /**
      * method to update the detail of project 
      * @param get the detail from project pojo class and get the projectId
      */
-    public void updateDetail(Project project) throws CustomException {  
-    	SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+    public void updateProject(Project project) throws CustomException {    	
 		Session session = null;
 		Transaction transaction = null;
         try {

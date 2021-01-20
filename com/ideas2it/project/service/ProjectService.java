@@ -11,20 +11,13 @@ public interface ProjectService {
     /**  
      * Method to add projects 
      */
-    public void addProject(Project projectDetails) throws CustomException;
-    
-    
+    public void addProject(Project projectDetails) throws CustomException;     
     
     /**
      * method to get the existing projects 
      */
     List<Project> entireProject() throws CustomException;
     
-    /**
-     * method to generate project Id
-     */
-    //String generateId() throws CustomException;
-  
     /**
      * Method to update the status of user 
      */
@@ -33,8 +26,18 @@ public interface ProjectService {
     /**
      * method to check the project Id is existing or not
      */
-    Project checkProjectId(String projectId) throws CustomException; 
-   Employee checkEmployeeId(String employeeId) throws CustomException; 
+    Project checkProjectId(String projectId) throws CustomException;
+    
+    /**
+     * method to check the employee Id is existing or not
+     */
+    Employee checkEmployeeId(String employeeId) throws CustomException; 
+    
+    void assignEmployee(int employeeId, int projectId) throws CustomException;
+    /**
+     * The retrieve method is used to display record based on the key value 
+     */
+    void retriveProjectById(int projectId) throws CustomException; 
     /**
      * method to delete project 
      */
@@ -43,8 +46,5 @@ public interface ProjectService {
     /**
      * method to updateDetail of the given Project
      */
-    void updateDetail(Project project) throws CustomException; 
-    
-    
-     
+    void updateProject(Project project) throws CustomException;         
 }

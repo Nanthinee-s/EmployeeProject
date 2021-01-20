@@ -22,15 +22,13 @@ import com.ideas2it.exception.CustomException;
  */
 
 public class EmployeeDaoImpl implements EmployeeDao {
+	
 	private SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
 	/**
 	 * Method to register the Employee and its details
-	 * 
 	 * @param it get the EmployeeDetails
-	 */
-	
-	public void registerEmployee(Employee employeeDetail) throws CustomException {
-		
+	 */	
+	public void registerEmployee(Employee employeeDetail) throws CustomException {		
 		Session session = null;
 		Transaction transaction = null;
 		try {
@@ -47,10 +45,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	/**
 	 * method used to update the detail of the employee
-	 * 
 	 * @param get the object of the Employee
 	 */
-	public void updateEmployeeDetail(Employee employee) throws CustomException {
+	public void updateEmployee(Employee employee) throws CustomException {
 		Transaction transaction = null;
 		Session session = null;
 		try {
@@ -67,12 +64,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	/**
-	 * Method used to display the EmployeeDetail
-	 * 
+	 * Method used to display the EmployeeDetail 
 	 * @return all employees in the form of list
 	 */
 	public List<Employee> getAllEmployees() {
-		
 		Session session = null;
 		Transaction transaction = null;
 		List<Employee> employees = new ArrayList<Employee>();
@@ -90,12 +85,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	/**
 	 * Method used to get the Employee object
-	 * 
 	 * @param it get the employeeId
 	 * @return it return the Employee object
 	 */
-	public Employee getEmployeeById(String employeeId) {
-		
+	public Employee getEmployeeById(String employeeId) {		
 		Session session = null;
 		Transaction transaction = null;
 		Employee employee = null;
@@ -114,12 +107,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	/**
 	 * Method to delete the Employee by Id
-	 * 
 	 * @param it get the employeeId
 	 * @return the int value
 	 */
-	public int deleteEmployeeById(String employeeId) {
-		
+	public int deleteEmployeeById(String employeeId) {		
 		Session session = null;
 		Transaction transaction = null;
 		int noOfRowAffected = 0;
@@ -144,13 +135,38 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	/**
+     * Used to retrive the values into the database given
+     * by the id provided by user
+     * @param it gets the id of Employees for retriving
+     */ 
+	public void retriveEmployeeById(int employeeId) {		
+		Session session = null;
+		Transaction transaction = null;
+		Employee employee=null;
+		try {
+			session = factory.openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("from Employee e where e.employeeId = : employeeId");		
+			query.setParameter("employeeId", employeeId);
+			employee = (Employee) query.uniqueResult();
+		    System.out.println(employee); 
+			transaction.commit();
+		} catch (HibernateException ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+	}
+	/**
 	 * Method to Update the employee Status by Id
-	 * 
 	 * @param it get the employeeId
 	 * @return the int value
 	 */
-	public int updateEmployeeStatus(String employeeId) {
-		
+	public int updateEmployeeStatus(String employeeId) {		
 		Session session = null;
 		Transaction transaction = null;
 		int noOfRowAffected = 0;
@@ -176,12 +192,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	/**
 	 * Method used to check the Employee Id is present or not
-	 * 
 	 * @param it get the EmployeeId
 	 * @return the boolean value
 	 */
-	public boolean checkEmployeeId(String employeeId) throws CustomException {
-		SessionFactory factory = HibernateSessionFactory.buildSessionFactory();
+	public boolean checkEmployeeId(String employeeId) throws CustomException {		
 		Session session = null;
 		Transaction transaction = null;
 		long num = 0L;
@@ -202,9 +216,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		} else {
 			return true;
 		}
-	}
+	}   
     
-
 	/**
 	 * method to count the number of employees @ return the count of employees in
 	 * the dataBase

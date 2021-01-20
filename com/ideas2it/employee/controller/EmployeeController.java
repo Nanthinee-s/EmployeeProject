@@ -32,9 +32,9 @@ public class EmployeeController {
                 System.out.println("");
                 System.out.println("----------MENU----------");
                 System.out.println();
-                System.out.println("1.Register Employee\n2.Update Employee detail\n"
-                + "3.Delete employee detail\n4.Display Active Employee Detail\n"
-                + "5.display All employees \n6.Update Employee Status \n7.Booking Project \n8.Exit");
+                System.out.println("1.Register Employee\n2.Update Employee \n"
+                + "3.Delete employee \n4.Display Active Employee \n"
+                + "5.display All employees \n6.Update Employee Status \n7.Booking Project \n8.Retrive An Employee \n9.Exit");
                 System.out.println("");
                 System.out.println("Enter your choice ");
                 optionOfEmployee = inputReader.nextInt();
@@ -45,11 +45,11 @@ public class EmployeeController {
                         break;
                     case 2:
                         /* Here this call the method to updateEmployeeDetails */
-                        updateEmployeeDetail();              
+                        updateEmployee();              
                         break;
                     case 3:  
                         /* Method to delete(soft delete) employee detail */    
-                        deleteEmployeeDetail();               
+                        deleteEmployee();               
                         break;
                     case 4: 
                         /* Here it display the active employees */
@@ -67,13 +67,16 @@ public class EmployeeController {
                     //	assigningProject();
                       //  break; 
                     case 8:
+                    	retriveEmployeeById();//Calls the retrieve method
+        				break;
+                    case 9:
                         break;
                     default:
                         System.out.println("*************** INVALID_CHOICE **" +
                                            "************");
                         break;
                 }
-            } while(optionOfEmployee != 8);
+            } while(optionOfEmployee != 9);
         } catch(InputMismatchException exception) {
             System.out.println("Please enter the value in Number ");
         }
@@ -115,7 +118,7 @@ public class EmployeeController {
     /**
      *Method is used to update the employee details
      */
-    private void updateEmployeeDetail() {
+    private void updateEmployee() {
         try {
             System.out.println("Enter the EmployeeId :");
             String employeeId = inputReader.next();
@@ -140,7 +143,7 @@ public class EmployeeController {
             if(wantMoreAddress.equals("yes")) {
                 registerEmployeeAddress(employeeDetail);
             }
-            employeeService.updateEmployeeDetail(employeeDetail);
+            employeeService.updateEmployee(employeeDetail);
             System.out.println("Updated Successfully");
         } catch(CustomException e) {
             System.out.println(e.getMessage());
@@ -201,7 +204,7 @@ public class EmployeeController {
     /**
      * Method is used to delete(soft delete) the employee
      */ 
-    private void deleteEmployeeDetail() {
+    private void deleteEmployee() {
         boolean wantMoreDeletion = true;
         while(wantMoreDeletion) {
             try {
@@ -219,6 +222,26 @@ public class EmployeeController {
         }
     }  
  
+    /**
+     * Method is used to delete(soft delete) the employee
+     */ 
+    private void retriveEmployeeById() {
+        boolean wantMoreRetrive = true;
+        while(wantMoreRetrive) {
+            try {
+                System.out.println("Enter EmployeeId");
+                int employeeId = inputReader.nextInt();
+                employeeService.retriveEmployeeById(employeeId);
+                System.out.println("Successfully Retrived");
+            } catch(CustomException e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("If you want further retrive : yes/no");
+            if(inputReader.next().equals("no")) {
+                wantMoreRetrive = false;
+            }
+        }
+    } 
     /** 
      * this method is used to update the employee status  
      */

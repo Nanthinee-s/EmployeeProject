@@ -91,7 +91,7 @@ public class Employee {
         this.addresses = addresses;
     }
     	
-	public void setProject(Set<Project> projects) {
+	public void setProjects(Set<Project> projects) {
 	    this.projects = projects; 
 	 }
 	 

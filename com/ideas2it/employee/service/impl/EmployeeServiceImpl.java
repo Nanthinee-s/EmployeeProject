@@ -107,6 +107,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
      
     /**
+     * The retrive method is used to display record based on the key value 
+     */
+	public void retriveEmployeeById(int employeeId) throws CustomException {
+	     employeeDaoImpl.retriveEmployeeById(employeeId);
+	}
+	
+    /**
      * method used to update the status of employee 
      * @param it get the employeeId
      * return the int value
@@ -119,8 +126,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * method used to update the detail of the employee 
      * @param it get the EmployeeDetail
      */
-    public void updateEmployeeDetail(Employee employeeDetail) throws CustomException {
-        employeeDaoImpl.updateEmployeeDetail(employeeDetail);
+    public void updateEmployee(Employee employeeDetail) throws CustomException {
+        employeeDaoImpl.updateEmployee(employeeDetail);
     }
    
     /**

@@ -53,9 +53,14 @@ public interface EmployeeService {
 	    int updateEmployeeStatus(String employeeId) throws CustomException ;
 	    
 	    /**
+	     * The retrieve method is used to display record based on the key value 
+	     */
+	    void retriveEmployeeById(int employeeId) throws CustomException; 
+		
+	    /**
 	     * Method to update the detail of the Employee using employeeId 
 	     */
-	    void updateEmployeeDetail(Employee employeeDetail) throws CustomException ;
+	    void updateEmployee(Employee employeeDetail) throws CustomException ;
 	    
 	    /**
 	     * Method to get the entire Employee details in the list

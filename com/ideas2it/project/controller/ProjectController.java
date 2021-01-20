@@ -37,7 +37,7 @@ public class ProjectController {
 				System.out.println("please Select the option");
 				System.out.println(
 						"1: RegisterProject \n2: Update Project" + "\n3: Delete Project\n4: Display All Projects\n"
-								+ "5: Display Active Projects\n6. update Status" + " \n7. Distribute Project \n8.Exit");
+								+ "5: Display Active Projects\n6. update Status" + "\n 7.Retrive Project \n8. Distribute Project \n8.Exit");
 				System.out.println("Enter your option");
 				option = input.nextInt();
 				switch (option) {
@@ -47,11 +47,11 @@ public class ProjectController {
 					break;
 				case 2:
 					/* This method to update the project details */
-					updateProjectDetail();
+					updateProject();
 					break;
 				case 3:
 					/* Here is to call the method to delete the project */
-					deleteProjectDetail();
+					deleteProject();
 					break;
 				case 4:
 					/* Here to call the method to display all project */
@@ -66,15 +66,18 @@ public class ProjectController {
 					updateProjectStatus();
 					break;
 				case 7:
+					retriveProjectById();
+					break;
+				case 8:
 					distributeProject();
 				    break;
-				case 8:
+				case 9:
 					break;
 				default:
 					System.out.println("---------Invalid Choice--------- ");
 					break;
 				}
-			} while (option != 8);
+			} while (option != 9);
 		} catch (InputMismatchException exception) {
 			System.out.println("please enter the value in numbers");
 		}
@@ -119,7 +122,7 @@ public class ProjectController {
      */
     private void distributeProject() {
         Project project = null;
-        Employee employee = null;
+        Employee employee;
         try {
             System.out.println("Enter employee Id to add new Project");
             String employeeId = input.next(); 
@@ -132,10 +135,10 @@ public class ProjectController {
                 String projectId = input.next();
                 project = projectService.checkProjectId(projectId);
                 System.out.println(project + "reached project");
-                Set<Employee> employees = project.getEmployees();
+                Set <Project> projectSet = employee.getProjects();
                 if (project != null) {                
-                    employees.add(employee);
-                    projectService.addProject(project);
+                	projectSet.add(project);
+                    employee.setProjects(projectSet);
                 } else {
                      System.out.println("The Entered Project ID "
                                         +projectId+" is not Registered");
@@ -148,12 +151,32 @@ public class ProjectController {
                 System.out.println(exception);
         }        
     }    
-
+    
+    /**
+     * Method is used to retrieve the project
+     */ 
+    private void retriveProjectById() {
+        boolean wantMoreRetrive = true;
+        while(wantMoreRetrive) {
+            try {
+                System.out.println("Enter ProjectId");
+                int projectId = input.nextInt();
+                projectService.retriveProjectById(projectId);
+                System.out.println("Successfully Retrived");
+            } catch(CustomException e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("If you want further retrive : yes/no");
+            if(input.next().equals("no")) {
+                wantMoreRetrive = false;
+            }
+        }
+    } 
 
 	/**
 	 * Method is used to update the project details
 	 */
-	private void updateProjectDetail() {
+	private void updateProject() {
 		Project projectDetail = new Project();
 		try {
 			System.out.println("Enter the ProjectId :");
@@ -169,7 +192,7 @@ public class ProjectController {
 				System.out.println("Enter project description ");
 				projectDetail.setProjectDescription(input.next());
 				projectDetail.setStatus(true);
-				projectService.updateDetail(projectDetail);
+				projectService.updateProject(projectDetail);
 				System.out.println("Updated Successfully");
 			} else {
 				System.out.println("The project Id is not registered ");
@@ -218,7 +241,7 @@ public class ProjectController {
 	/**
 	 * Delete(Soft delete) Project and its detail from the database
 	 */
-	private void deleteProjectDetail() {
+	private void deleteProject() {
 		boolean wantMoreDeletion = true;
 		while (wantMoreDeletion) {
 			System.out.println("Enter ProjectId");
