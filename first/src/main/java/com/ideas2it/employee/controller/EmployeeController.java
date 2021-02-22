@@ -60,7 +60,10 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
     
-   
+    /**
+     * Gets the employee details from the user in jsp page and sets it the 
+     * employee object which is added to the employees list
+     */
     @RequestMapping("/registerEmployee")
     public ModelAndView registerEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ModelAndView model = new ModelAndView("employeeForm");
@@ -106,6 +109,9 @@ public class EmployeeController {
         return model;
     }
     
+    /**
+     * Gets the list of employees from server and forwards the request, response
+     */
     @RequestMapping("/displayEmployee")
     public ModelAndView displayEmployee() throws ServletException, IOException {
         ModelAndView model = new ModelAndView("viewEmployees");    
@@ -119,6 +125,10 @@ public class EmployeeController {
        return model;
    }
     
+    /**
+     * Soft deletes the Employee from the list of employees 
+     * by geting the object from the entered employee id
+     */
     @RequestMapping("/deleteEmployee")
     public ModelAndView deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ModelAndView model = new ModelAndView("employeeSuccessfulPage");
@@ -138,6 +148,10 @@ public class EmployeeController {
         
     }
     
+    /**
+     * Gets the particular employee with corresponding employee id 
+     * and forwards the obtained employee object 
+     */
     @RequestMapping("/getEmployee")
     public ModelAndView getEmployee(HttpServletRequest request, 
                           HttpServletResponse response) 
@@ -153,7 +167,11 @@ public class EmployeeController {
         }  
         return model;
     } 
-   
+    
+    /**
+     * Updates the employee details in the employees list to the particular
+     * Employee object
+     */
     @RequestMapping("/updateEmployee")
     public ModelAndView updateEmployee(HttpServletRequest request, 
                              HttpServletResponse response, @ModelAttribute("employee")Employee employee) 
